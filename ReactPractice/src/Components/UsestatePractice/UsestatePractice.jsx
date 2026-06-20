@@ -69,7 +69,7 @@ function UsestatePractice() {
   
       {isSearching && (
         <div>
-          Searching trains from {fromStation} to {toStation}...
+          Searching trains from {fromStation} to {toStation}....
         </div>
       )}
     </div>
