@@ -1,70 +1,81 @@
 import React from "react";
 import { useState } from "react";
 
-function UsestatePractice() {
-  const [fromStation, setFromStation] = useState("");
-  const [toStation, setToStation] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [isSearching, setIsSearching] = useState(false);
+function LoginCheck() {
+  const [userDetails, setUserDetails] = useState({
+    userName: "",
+    password: "",
+  });
+  const [errormesage, setErrorMessage] = useState(false);
+  const [displayMessage,setDisplayMessage] = useState("");
 
-  function handleFromChange(event) {
-    setErrorMessage("");
-    setIsSearching(false);
-    setFromStation(event.target.value);
+  function handleChange(event) {
+   
+    const { name, value } = event.target; 
+
+    setUserDetails((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   }
+  function handelLogin(){
 
-  function handleToChange(event) {
-    setErrorMessage("");
-    setIsSearching(false);
-    setToStation(event.target.value);
-  }
+    const validUsername = "tharun";
+    const validPassword = "tharun@123";
 
-  function handleSearch() {
-    if (fromStation === "" || toStation === "") {
-      setErrorMessage("enter station name");
-      setIsSearching(false);
-    } else {
-      setErrorMessage("");
-      setIsSearching(true);
+    if(userDetails.userName ==="" || userDetails.password===""){
+        setErrorMessage(false);
+        setDisplayMessage("Enter the details")
+    }
+    else if (
+      userDetails.userName === validUsername &&
+      userDetails.password === validPassword
+    ){
+        setErrorMessage(true);
+        setDisplayMessage("Welcome");
+       
+
+    }
+    else{
+        // FIX: Added missing setErrorMessage(false) to match your state logic when login fails
+        setErrorMessage(false); 
+        setDisplayMessage("Invalid username or password!");
     }
   }
 
-  return (
-    <>
-      <div className="maindiv">
-        <h4> IRCTC Train  </h4>
-        <div>
-          <input
-            name="fromStation"
-            type="text"
-            value={fromStation}
-            onChange={handleFromChange}
-          />
-        </div>
+  return <>
+  <div className="maindiv"> {/* FIX: Changed 'class' to 'className' */}
+    <h4> IRCTC LOgin Page</h4>
+    <div>
+        <input
+          name="userName"
+          type="text"
+          value={userDetails.userName}
+          onChange={handleChange}
+        />
+    </div>
 
-        <div className="pwd">
-          <input
-            name="toStation"
-            type="text"
-            value={toStation}
-            onChange={handleToChange}
-          />
-        </div>
-      </div>
-      <div>
-        <button onClick={handleSearch}> Search Trains </button>
-      </div>
+    <div className ="pwd">
+        <input
+          name="password"
+          type="password"
+          value={userDetails.password}
+          onChange={handleChange}
+        />
+    </div>
+  </div>
+  <div>
+    <button onClick={handelLogin}> Login </button>
+  </div>
 
-      <div className="dispaly">
-        {errorMessage && (
-          <p> {errorMessage} </p>
+  <div className = "dispaly">
+       
+        {(errormesage || displayMessage !== "") && (
+            <p> {displayMessage} </p>
         )}
-        {isSearching && (
-          <p> Searching trains from {fromStation} to {toStation}... </p>
-        )}
-      </div>
-    </>
-  );
+  </div>
+
+  </>;
 }
 
-export default UsestatePractice;
+export default LoginCheck;
