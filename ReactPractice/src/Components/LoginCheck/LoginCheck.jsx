@@ -37,14 +37,13 @@ function LoginCheck() {
 
     }
     else{
-        // FIX: Added missing setErrorMessage(false) to match your state logic when login fails
         setErrorMessage(false); 
         setDisplayMessage("Invalid username or password!");
     }
   }
 
   return <>
-  <div className="maindiv"> {/* FIX: Changed 'class' to 'className' */}
+  <div className="maindiv"> 
     <h4> IRCTC LOgin Page</h4>
     <div>
         <input
